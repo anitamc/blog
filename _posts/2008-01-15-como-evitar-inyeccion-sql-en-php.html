@@ -1,0 +1,48 @@
+---
+layout: post
+title: Cómo evitar inyección SQL en PHP
+date: 2008-01-15 11:49:23.000000000 -08:00
+type: post
+published: true
+status: publish
+categories:
+- mysql
+- php
+tags: []
+meta: {}
+author:
+  login: admin
+  email: anita.mcastillo@gmail.com
+  display_name: admin
+  first_name: ''
+  last_name: ''
+---
+<p><strong>¿Qué es la inyección SQL?</strong></p>
+<p>Es una vulnerabilidad informática en la que se introduce código SQL malintencionado en los campos de un formulario.</p>
+<p>Veámoslo con un <strong>ejemplo</strong>:</p>
+<p>1) Tengo una sentencia SQL dentro de mi código, tal como esta:<br />
+<code><br />
+$query = "SELECT * FROM Usuarios WHERE nombre = '$nombreUsuario' ";</code></p>
+<p>$resul = mysql_query($query);</p>
+<p>donde en nombreUsuario tengo el valor que recibido del usuario en el formulario.</p>
+<p>2)Si el usuario, introduce "Pepito", la sentencia que ejecutará la aplicación será:</p>
+<p><code><br />
+$query = "SELECT * FROM Usuarios WHERE nombre = 'Pepito' ";<br />
+</code></p>
+<p>que se ejecutará sin problemas.</p>
+<p>3) Imaginemos ahora que el usuario tiene un poco más de mala idea e introduce esto en el campo nombreUsuario del formulario :</p>
+<p><code><br />
+"Pepito'; DROP TABLE Usuarios; SELECT * FROM Facturas";<br />
+</code></p>
+<p>4) La sentencia que ejecutará la aplicación será:</p>
+<p><code><br />
+$query = "SELECT * FROM Usuarios WHERE nombre = 'Pepito'; DROP TABLE    Usuarios; SELECT * FROM Facturas" ;<br />
+</code></p>
+<p>De forma que está eliminando datos de nuestra base de datos, y accediendo a datos para los cuales en un principio no debería de tener permiso.</p>
+<p><strong>¿Cómo lo solucionamos? </strong></p>
+<p>PHP nos facilita la función <strong>mysql_real_escape_string</strong>(string $cadena_no_escapada [, resource $id_enlace].</p>
+<p>Usando esta función, nuestra consulta quedaría de la forma:</p>
+<p><code><br />
+$query =  sprintf("SELECT * FROM Usuarios WHERE nombre = '%s' ", mysql_real_escape_string($nombreUsuario) );</code></p>
+<p>Puedes encontrar más información sobre este tema en la <a href="http://es.wikipedia.org/wiki/Portada" title="Wikipedia">Wikipedia</a>, en el siguiente enlace:</p>
+<p><a href="http://es.wikipedia.org/wiki/Inyecci%C3%B3n_SQL"> http://es.wikipedia.org/wiki/Inyecci%C3%B3n_SQL</a></p>

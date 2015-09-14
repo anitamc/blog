@@ -1,0 +1,77 @@
+---
+layout: post
+title: Datos BLOB con PHP y mySQL
+date: 2007-12-11 10:23:46.000000000 -08:00
+type: post
+published: true
+status: publish
+categories:
+- mysql
+- php
+tags: []
+meta:
+  _edit_last: '1'
+author:
+  login: admin
+  email: anita.mcastillo@gmail.com
+  display_name: admin
+  first_name: ''
+  last_name: ''
+---
+<p>Vamos a ver cómo podemos guardar ficheros de nuestro ordenador en la base de datos mySQL de nuestro servidor.</p>
+<p>Lo primero que tenemos que hacer es crear la base de datos. Nos centramos en la tabla que contendrá nuestro archivo. La sentencia SQL para crear el archivo será:</p>
+<blockquote><p>CREATE TABLE Fichero(<br />
+id INT NOT NULL AUTO_INCREMENT,<br />
+contenido MEDIUMBLOB NOT NULL,<br />
+nombre VARCHAR(100) NOT NULL,<br />
+extension VARCHAR(5) NOT NULL,<br />
+titulo VARCHAR(120),<br />
+tamano INT NOT NULL,<br />
+PRIMARY KEY (id)) TYPE=INNODB;</p></blockquote>
+<p>El contenido del archivo se almacenará en el campo 'contenido', que es de tipo MEDIUMBLOB (permite almacenar archivos de hasta 16 MB).</p>
+<p>Veamos ahora nuestro formulario:</p>
+<blockquote><p>&lt;form enctype="multipart/form-data" action=''$PHP_SELF" method='post'&gt;</p>
+<p>&lt;label for='fichero'&gt;Fichero a guardar:&lt;/label&gt;<br />
+&lt;input type='file' name='userfile' id='fichero'/&gt;</p>
+<p>&lt;input type='submit' value='Enviar fichero'&gt;</p>
+<p>&lt;/form&gt;</p></blockquote>
+<p>Para tratar el fichero que subimos, utilizamos el array $_FILES ($HTTP_POST_FILES p ara versiones anteriores a PHP 4.1.0)  que contiene la información sobre el archivo enviado.</p>
+<p>Para describir el contenido de $_FILES, veremos unos ejemplos con el valor 'userfile' como nombre de fichero (al igual que en el formulario).</p>
+<blockquote><p>$_FILES['userfile']['name']: nombre original del fichero en la máquina cliente</p>
+<p>$_FILES['userfile']['type']: tipo MIME del fichero</p>
+<p>$_FILES['userfile']['size']: tamaño en bytes del fichero</p>
+<p>$_FILES['userfile']['tmp_name']: nombre del fichero temporal que se utiliza para almacenar en el servidor el archivo recibido.</p></blockquote>
+<p>Podemos comprobar facilmente si un archivo ha sido cargado a través de HTTP POST con la función is_uploaded_file($_FILES['userfile']['tmp_name']).</p>
+<p>Por último, podemos hacer una función como la siguiente para almacenar los datos en la base de datos:</p>
+<blockquote><p>function addFichero(){<br />
+/*Recupero  los datos característicos para introducirlos en la base de datos*/</p>
+<p>$nombre = $_FILES['userfile']['name'];<br />
+$ext = $_FILES['userfile']['type'];<br />
+$tam = $_FILES['userfile']['size'];</p>
+<p>$fp = fopen($_FILES['userfile']['tmp_name'], "rb");<br />
+$contenido = fread($fp, $tam);<br />
+$contenido = addslashes($contenido);<br />
+fclose($fp);</p>
+<p>/* Guardo los datos en la base de datos */<br />
+$sql = "INSERT INTO Fichero VALUES('', '$contenido', '$nombre', '$ext', '', '$tam')";<br />
+if (!mysql_query  ($sql))<br />
+die("Error al añadir el fichero");<br />
+else<br />
+echo "Se ha guardado correctamente el archivo";<br />
+}</p></blockquote>
+<p>Es posible que necesitemos subir más de un archivo a nuestro servidor en un único formulario. Para ello, podemos usar un array para que sea más sencillo manejarlos:</p>
+<blockquote><p>&lt;form enctype="multipart/form-data" action=''$PHP_SELF" method='post'&gt;</p>
+<p>&lt;p&gt;Subir estos archivos:&lt;/p&gt;<br />
+&lt;input type='file' name='userfile[]'/&gt;<br />
+&lt;input type='file' name='userfile[]'/&gt;</p>
+<p>&lt;input type='submit' value='Enviar fichero'&gt;</p>
+<p>&lt;/form&gt;</p></blockquote>
+<p>De esta manera, almacenamos los ficheros como un array, al que podemos acceder así:</p>
+<blockquote><p>$_FILES['userfile']['name'][0] , $_FILES['userfile']['name'][1] , etc...</p></blockquote>
+<p>Puedes encontrar más información en:</p>
+<blockquote>
+<ul>
+<li>http://es.php.net/manual/es/features.file-upload.php</li>
+<li>http://es2.php.net/manual/es/function.is-uploaded-file.php</li>
+</ul>
+</blockquote>

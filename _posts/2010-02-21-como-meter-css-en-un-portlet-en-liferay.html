@@ -1,0 +1,30 @@
+---
+layout: post
+title: Cómo meter CSS en un portlet en Liferay
+date: 2010-02-21 21:30:21.000000000 -08:00
+type: post
+published: true
+status: publish
+categories:
+- liferay
+tags:
+- liferay
+meta:
+  _edit_last: '1'
+author:
+  login: admin
+  email: anita.mcastillo@gmail.com
+  display_name: admin
+  first_name: ''
+  last_name: ''
+---
+<p>Si queremos añadir un estilo a un único portlet, y no queremos utilizar dicho estilo en ningún otro portlet del portal, en vez de añadir una clase CSS en el tema, podemos añadir una hoja de estilos con las clases necesarias en nuestro portlet de la siguiente manera:</p>
+<p>1) Meter en la carpeta<strong> WebContent</strong> el archivo CSS de nuestro portlet:</p>
+<p><a href="http://moralesdelcastillo.com/blog/wp-content/uploads/2010/02/webcontent1.png"></a><a href="http://moralesdelcastillo.com/blog/wp-content/uploads/2010/02/webcontent2.png"><img class="alignnone size-full wp-image-35" title="webcontent2" src="{{ site.baseurl }}/assets/webcontent2.png" alt="webcontent2" width="254" height="216" /></a></p>
+<p>Ojo!: la carpeta CSS debe de meterse en WebContent y NO en WEB-INF, ya que el contenido de WEB-INF no forma parte del árbol de documentos públicos de la aplicación y por lo tanto el cliente WEB no podrá acceder a ese recurso.</p>
+<p>2) Para <strong>incluir</strong> la hoja de estilos en el jsp, hacer una llamada como la siguiente en nuestro jsp:</p>
+<p>&lt;style type="text/css"&gt;<br />
+&lt;%@ include file="/css/base.css" %&gt;<br />
+&lt;/style&gt;</p>
+<p>Dejo aquí un ejemplo para descargarse: <a href="http://moralesdelcastillo.com/blog/wp-content/uploads/2010/02/hellostruts-portlet-5121.war">hellostruts-portlet-5121</a> de <a href="http://www.robisoft.com/" target="_blank">Robisoft.com</a>, que me sirvió para entender cómo se hacía.</p>
+<p><a href="http://www.robisoft.com/downloads/hello-struts-portlet/" target="_blank">Página original de descarga</a> del ejemplo.</p>

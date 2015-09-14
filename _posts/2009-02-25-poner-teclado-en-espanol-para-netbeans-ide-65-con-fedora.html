@@ -1,0 +1,23 @@
+---
+layout: post
+title: Poner teclado en español para NetBeans IDE 6.5 con Fedora
+date: 2009-02-25 20:38:22.000000000 -08:00
+type: post
+published: true
+status: publish
+categories:
+- Java
+tags: []
+meta:
+  _edit_last: '1'
+author:
+  login: admin
+  email: anita.mcastillo@gmail.com
+  display_name: admin
+  first_name: ''
+  last_name: ''
+---
+<p>Cuando instalamos NetBeans, y vamos a programar con él por primera vez, nos encontramos con que no podemos escribir ¡las llaves!, y más símbolos... parece que el teclado no está en español. Comprobamos que el resto de aplicaciones de nuestro escritorio sí tienen el teclado en español... ¿qué está pasando?</p>
+<p>El problema es que la máquina virtual de Java usa la configuración de <a href="http://en.wikipedia.org/wiki/SCIM" target="_self">SCIM</a> que por defecto está en inglés.</p>
+<p>La solución consiste en editar el fichero global de SCIM (<strong>/etc/scim/global</strong>) y cambiar el valor de SupportedUnicodeLocales a español:</p>
+<blockquote><p>/SupportedUnicodeLocales = es_ES.UTF-8</p></blockquote>

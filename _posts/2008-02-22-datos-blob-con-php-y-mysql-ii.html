@@ -1,0 +1,29 @@
+---
+layout: post
+title: Datos BLOB con PHP y MySQL (II)
+date: 2008-02-22 14:20:14.000000000 -08:00
+type: post
+published: true
+status: publish
+categories:
+- mysql
+- php
+tags: []
+meta: {}
+author:
+  login: admin
+  email: anita.mcastillo@gmail.com
+  display_name: admin
+  first_name: ''
+  last_name: ''
+---
+<p>En esta ocasión vamos a ver cómo podemos descargar desde nuestro navegador un archivo que tenemos almacenado en la base de datos.</p>
+<p>Para ello, sólamente tenemos que jugar con las cabeceras de nuestra página:</p>
+<blockquote><p>header ("Content-Disposition: attachment; filename=".$nombre);<br />
+header("Content-Type: ".$extension);<br />
+header ("Content-Length: ".$size);<br />
+print $contenido;</p></blockquote>
+<p>Estos valores (previamente almacenados en la base de datos) los obtenemos de la variable $_FILES cuando estamos "subiendo" el archivo a la base de datos.</p>
+<p>$nombre = $_FILES['userfile']['name'];<br />
+$extension = $_FILES['userfile']['type'];<br />
+$tam = $_FILES['userfile']['size'];</p>

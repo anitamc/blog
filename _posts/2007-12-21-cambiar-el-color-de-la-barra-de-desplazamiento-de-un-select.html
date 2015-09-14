@@ -1,0 +1,83 @@
+---
+layout: post
+title: Cambiar el aspecto de un elemento Select
+date: 2007-12-21 11:52:31.000000000 -08:00
+type: post
+published: true
+status: publish
+categories:
+- css
+tags: []
+meta:
+  _edit_last: '1'
+author:
+  login: admin
+  email: anita.mcastillo@gmail.com
+  display_name: admin
+  first_name: ''
+  last_name: ''
+---
+<p><strong>Cambiar aspecto general</strong></p>
+<p>Para ello, sólamente tendremos que modificar el estilo del tag 'select'.</p>
+<p align="left">&nbsp;</p>
+<blockquote><p>select{</p>
+<blockquote><p> width: 15em;<br />
+border: 1px solid #D9D9D9;</p></blockquote>
+<p>}</p></blockquote>
+<p><strong>Cambiar la barra de desplazamiento</strong></p>
+<p>He encontrado una página desde la que podemos aprender a cambiar el color de nuestros elementos Select fácilmente:</p>
+<p><a href="http://iconico.com/CSSScrollbar/" title=" http://iconico.com/CSSScrollbar/"> http://iconico.com/CSSScrollbar/</a></p>
+<p>Elegimos la combinación de colores que queremos utilizar, y el programita nos genera el CSS de nuestro elemento directamente.</p>
+<p>NOTA: El único problema que tiene, es que no funciona en Firefox.</p>
+<p>Dejo un pantallazo de la aplicación web para el que quiera verlo antes.</p>
+<p><a href="http://anita.moralesdelcastillo.com/blog/wp-content/uploads/2007/12/pantallazo.png" title="Pantallazo"><img src="{{ site.baseurl }}/assets/pantallazo.png" alt="Pantallazo" /></a></p>
+<p>Un resumen  de los elementos que podemos modificar en la barra de desplazamiento:</p>
+<ul>
+<li>scrollbar-arrow-color</li>
+</ul>
+<ul>
+<li> scrollbar-3Dlight-color</li>
+</ul>
+<ul>
+<li> scrollbar-darkshadow-color</li>
+</ul>
+<ul>
+<li>scrollbar-face-color</li>
+</ul>
+<ul>
+<li>scrollbar-highlight-color</li>
+</ul>
+<ul>
+<li>scrollbar-shadow-color</li>
+</ul>
+<ul>
+<li>scrollbar-track-color</li>
+</ul>
+<p>Por ejemplo, para cambiar la barra de desplazamiento de todos nuestros elementos select, haremos:</p>
+<p align="left">&nbsp;</p>
+<blockquote><p>select{</p>
+<blockquote><p> scrollbar-arrow-color: #FFFFFF;<br />
+scrollbar-face-color: #8E6384;</p></blockquote>
+<p>}</p></blockquote>
+<p><strong> Cambiar los elementos option</strong></p>
+<p>Para ello, simplemente hay que modificar las opciones del elemento 'option'.</p>
+<p>Por ejemplo, para cambiar el color del texto</p>
+<p align="left">&nbsp;</p>
+<blockquote><p>option{</p>
+<blockquote><p> color: #746F7C;</p></blockquote>
+<p>}</p></blockquote>
+<p>Algo que puede ser bastante útil, es definir distintas clases para los elementos option. Por ejemplo supongamos que queremos hacer un elemento select en el que tengamos carreras universitarias. Podríamos diferenciar entre licenciaturas y diplomaturas, para que sea más fácil distinguirlas:</p>
+<p align="left">&nbsp;</p>
+<blockquote><p>option.licenciatura{</p>
+<blockquote><p> background-color: red;</p></blockquote>
+<p>}</p>
+<p>option.diplomatura{</p>
+<blockquote><p> background-color: blue;</p></blockquote>
+<p>}</p></blockquote>
+<p>En nuestro código HTML podríamos:</p>
+<p align="left">&nbsp;</p>
+<blockquote><p>&lt;select id='estudios'&gt;</p>
+<blockquote><p> &lt;option class='licenciatura'&gt;Licenciatura en Bellas Artes&lt;/option&gt;<br />
+&lt;option class='diplomatura'&gt;Diplomado en Estadística&lt;/option&gt;</p></blockquote>
+<p>&lt;/select&gt;</p></blockquote>
+<p>De esta forma, de un simple vistazo, podremos diferenciar dos tipos de titulaciones en nuestro select.</p>

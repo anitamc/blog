@@ -1,0 +1,32 @@
+---
+layout: post
+title: Cómo centrar una tabla con CSS
+date: 2008-04-03 13:09:38.000000000 -07:00
+type: post
+published: true
+status: publish
+categories: []
+tags:
+- css
+meta:
+  _edit_last: '1'
+author:
+  login: admin
+  email: anita.mcastillo@gmail.com
+  display_name: admin
+  first_name: ''
+  last_name: ''
+---
+<p>La solución más sencilla es envolver la tabla con un div:</p>
+<p>&lt;div class='centraTabla'&gt;</p>
+<p>mitabla....</p>
+<p>&lt;/div&gt;</p>
+<p>Y formatear ese div de la siguiente manera:</p>
+<p>div.centraTabla{<br />
+text-align: center;<br />
+}</p>
+<p>div.centraTabla table {<br />
+margin: 0 auto;<br />
+text-align: left;<br />
+}</p>
+<p>Así de simple :)</p>
